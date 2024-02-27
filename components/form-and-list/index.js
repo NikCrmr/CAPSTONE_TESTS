@@ -1,6 +1,9 @@
-import styled from "styled-components";
+import { useState } from "react";
+import styled, { css } from "styled-components";
+import { nanoid } from "nanoid";
 
 export default function FormAndList() {
+  const [checked, setChecked] = useState([]);
   function handleSubmit(event) {
     event.preventDefault();
     const formData = new FormData(event.target);
@@ -9,7 +12,11 @@ export default function FormAndList() {
       formDataObject[key] = value;
     });
     console.log(formDataObject);
-    console.log({ fear: event.target.fear.checked });
+
+    const isChecked = event.target.fear.checked;
+    setChecked((prevCheckedItems) => [...prevCheckedItems, isChecked]);
+    console.log("checked", checked);
+    console.log("isChecked", isChecked);
   }
   return (
     <>
@@ -28,15 +35,15 @@ export default function FormAndList() {
               onClick={() => console.log("Click")}
             />
           </StyledCheckbox>
-          <StyledCheckbox htmlFor="fear">
+          <StyledCheckbox htmlFor="enjoyment">
             ENJOYMENT
             <input type="checkbox" name="enjoyment" id="enjoyment" />
           </StyledCheckbox>
-          <StyledCheckbox htmlFor="fear">
+          <StyledCheckbox htmlFor="disgust">
             DISGUST
             <input type="checkbox" name="disgust" id="disgust" />
           </StyledCheckbox>
-          <StyledCheckbox htmlFor="fear">
+          <StyledCheckbox htmlFor="sadness">
             SADNESS
             <input type="checkbox" name="sadness" id="sadness" />
           </StyledCheckbox>
@@ -46,6 +53,11 @@ export default function FormAndList() {
           <br />
           <button type="submit">SUMBIT</button>
         </form>
+        <ul>
+          {checked.map((x) => {
+            return <li key={nanoid()}>{x ? "true" : "false"}</li>;
+          })}
+        </ul>
       </Layout>
     </>
   );
