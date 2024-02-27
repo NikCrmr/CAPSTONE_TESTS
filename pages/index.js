@@ -1,7 +1,8 @@
+import FormAndList from "./components/form-and-list";
 export default function HomePage() {
   return (
     <div>
-      <h1>Hello from Next.js</h1>
+      <FormAndList />
     </div>
   );
 }
